@@ -1,6 +1,6 @@
-const express = require("express");
 const cors = require("cors");
-const app = express();
+const mongoose = require('mongoose');
+const app = require('./app');
 
 
 var corsOptions = {
@@ -11,10 +11,28 @@ app.use(cors(corsOptions));
 
 
 
+mongoose.connect('mongodb://localhost:27017/DB', {useNewUrlParser: true, useUnifiedTopology: true})
+.then(()=>{
+    console.log('connected to the database');
+})
+.catch( err => {
+    console.log(`something went wrong ${err}`);
+})
+
+
+
+
+
 app.get("/", (req, res) => {
-   
     res.json({ message: "Hello From Backend" });
 });
+
+
+
+
+
+
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8000;

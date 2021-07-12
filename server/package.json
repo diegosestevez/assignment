@@ -10,7 +10,9 @@
     "mongoose": "^5.13.2",
     "nodemon": "^2.0.12"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

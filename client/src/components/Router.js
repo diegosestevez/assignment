@@ -1,11 +1,14 @@
 import { useEffect } from "react";
-import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import {Button} from '@material-ui/core';
+import {BrowserRouter as Router, Switch, Route, Redirect, Link, useHistory } from "react-router-dom";
+import InstructorPage from "../Pages/InstructorPage";
+import StudentPage from "../Pages/StudentPage";
+import FrontPage from "../Pages/FrontPage.js";
 
 
 
 const Routes = () => {
-    
+    let history = useHistory();
+
     useEffect(()=>{
         fetch('http://localhost:8000')
         .then(response => response.json())
@@ -16,19 +19,21 @@ const Routes = () => {
 
 
     return (
-        <Router>
-        <Button component={Link} to='/instructor' variant="contained" color="primary">
-              Instructor
-        </Button>
-        <Button component={Link} to='/student1' variant="contained" color="secondary">
-              Student #1
-        </Button>
-        <Button component={Link} to='/student2' variant="contained" color="secondary">
-              Student #2
-        </Button>
-        <Button component={Link} to='/student3' variant="contained" color="secondary">
-              Student #3
-        </Button>
+      <Router>
+            <Switch>
+                  <Route path="/home">
+                        <FrontPage history={history}/>
+                  </Route>
+                  <Route exact path="/">
+                        <Redirect to="/home" />
+                  </Route>
+                  <Route path="/instructor">
+                        <InstructorPage history={history}/>
+                  </Route>
+                  <Route path="/student">
+                        <StudentPage history={history}/>
+                  </Route>
+            </Switch>
       </Router>
     )
 }
