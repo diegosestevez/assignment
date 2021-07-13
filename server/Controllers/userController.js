@@ -1,5 +1,108 @@
 const User = require('./../Models/userModel');
+const assignment = require('./../Controllers/assignmentController');
 
-exports.getUser = (req, res) => {
-    res.send('you can now write database logic in the controller!');
+
+let userObj = [
+    {
+        name: 'Joe Schmoe',
+        username: 'ms1',
+        email: 'Joe_Schmoe@gmail.com'
+
+    },
+    {
+        name: 'Karl Gustav',
+        username: 'jm1',
+        usertype: 'Student',
+        email: 'Karl_Gustav@gmail.com'
+
+    },
+    {
+        name: 'Katie Clues',
+        username: 'rh1',
+        usertype: 'Student',
+        email: 'Katie_Clues@gmail.com'
+
+    },
+    {
+        name: 'Mike Niaegi',
+        username: 'ab1',
+        usertype: 'Student',
+        email: 'Mike Niaegi@gmail.com'
+
+    }
+]
+
+let assignObj = [
+    {
+        title: 'On Board Assignment 1'
+
+    },
+    {
+        title: 'On Board Assignment 2'
+
+    },
+    {
+        title: 'On Board Assignment 3'
+
+    },
+];
+
+
+exports.createDefaultUsers = async () =>{
+    console.log('Thanks Omkar');
+
+    const users = await User.find();
+
+    if(users.length < 4){
+        userObj.forEach((i)=>{
+            const newUser = new User(i)
+
+            newUser.save().then( data => {
+             console.log('new user created!')
+             console.log(data)
+
+             if(data.usertype === 'Student'){
+                 assignObj.forEach((i)=>{
+                    assignment.createAssignment({
+                         user_id: data._id,
+                         title: i.title
+                   })
+               })
+             }
+            }).catch(err =>{
+                console.log(`${err} assignments were not created`);
+            })
+               
+        })
+    }
+}
+
+
+
+
+exports.getAllUsers = async (req, res) => {
+    try{
+        const users = await User.find();
+        res.status(200).json({
+            message: 'success',
+            users
+        })
+    }catch(err){
+        res.status(400).json({
+            message:'failed',
+            error: err
+        })
+    }
+}
+
+exports.deleteAllUsers = async (req, res) => {
+    try{
+        const users = await User.deleteMany({})
+        res.status(204).json({})
+    }catch(err){
+        res.status(400).json({
+            message: 'something went really wrong if you are seeing this',
+            error: err
+        })
+    }
 }
