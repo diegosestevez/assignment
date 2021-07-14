@@ -1,14 +1,5 @@
-const cors = require("cors");
 const mongoose = require('mongoose');
 const app = require('./app');
-
-
-var corsOptions = {
-    origin: "http://localhost:3000"
-};
-
-app.use(cors(corsOptions));
-
 
 
 mongoose.connect('mongodb://localhost:27017/DB', {useNewUrlParser: true, useUnifiedTopology: true})
@@ -18,8 +9,6 @@ mongoose.connect('mongodb://localhost:27017/DB', {useNewUrlParser: true, useUnif
 .catch( err => {
     console.log(`something went wrong ${err}`);
 })
-
-
 
 
 

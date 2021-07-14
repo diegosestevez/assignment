@@ -33,7 +33,8 @@ try{
 
 exports.getStudentAssignments = async (req, res) => {
     
-        // console.log(req.query.user) this is undefined WTH??
+        // console.log(req.query.user)
+        //example query --> assign?user=60ededa3747585039cac84e7
         if(req.query.user){
             try{
                 const assignmentData = await Assignment.find({user_id: req.query.user});
