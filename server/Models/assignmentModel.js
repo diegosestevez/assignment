@@ -22,12 +22,13 @@ let question_fb = {
 
 const assignmentSchema = new mongoose.Schema({
     user_id:String,
-    title: { type: String, default: 'On Board Assignment' },
+    title: { type: String, required: true },
+    type: {type: String, required: true},
     description: { type: String, default: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.' },
     submitted: { type: Boolean, default: false },
     status: { type: String, default: 'Not Started' },
     score: { type: Number, default: 0 },
-    questions: { type: [Object], default: [question_mc, question_mcs, question_fb] }
+    options:[Array]
 });
 
 const Assignment = mongoose.model('Assignment', assignmentSchema);
