@@ -52,19 +52,26 @@ let assignObj = [
     {
         title: "When Was BCIT's 50th-annniversary celebration ?",
         type:'MC',
-        options: ["2016", "1976", "2002", "1999"]
-
+        options: ["2016", "1976", "2002", "1999"],
+        submitted: false,
+        score: 0,
+        answer: ''
     },
     {
         title: "Which of the following services does the LTC provide ? Select all that apply.",
         type: 'MS',
-        options: ['Technicall Illustration', 'Instructional Design', 'Financial Advice', 'Admission and Registration', 'Audio-visual Loans']
-
+        options: ['Technicall Illustration', 'Instructional Design', 'Financial Advice', 'Admission and Registration', 'Audio-visual Loans'],
+        submitted: false,
+        score: 0,
+        answer: ''
     },
     {
         title: "The current Prime Minister in Canada is (include the starting year for the PM).",
         type: 'FIB',
-        options: []
+        options: [],
+        submitted: false,
+        score: 0,
+        answer: ''
     },
 ];
 
@@ -88,7 +95,10 @@ exports.createDefaultUsers = async () =>{
                          user_id: data._id,
                          title: i.title,
                          type: i.type,
-                         options: i.options
+                         options: i.options,
+                         submitted: i.submitted,
+                         score: i.score,
+                         answer: i.answer
                    })
                })
              }

@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require("cors");
+const bodyParser = require('body-parser')
 const assignRouter = require('./Routes/assignmentRoutes');
 const userRouter = require('./Routes/userRoutes');
 const app = express();
-const bodyParser = require('body-parser')
+
 
 var corsOptions = {
     origin: "http://localhost:3000"
