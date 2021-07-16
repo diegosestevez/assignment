@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { TextField, FormControl, FormControlLabel, FormGroup, RadioGroup, FormLabel, Radio, Checkbox, Button} from '@material-ui/core'
-
+import Assignment1 from '../components/Assignment1';
+import Assignment2 from '../components/Assignment2';
+import Assignment3 from '../components/Assignment3';
 
 
 const StudentPage = ({userID, name}) => {
  const [questions, setQuestions] = useState(null);
+ 
  const [multipleChoice, setMultipleChoice] = useState(null);
  const [multiSelect, setMultSelect] = useState([]);
  const [fillInBlank, setFillInBlank] = useState('');
@@ -41,7 +43,8 @@ const StudentPage = ({userID, name}) => {
         e.preventDefault();
 
         const payload = {
-            key:multipleChoice
+            answer:multipleChoice,
+            submitted: true
         }
 
 
@@ -64,7 +67,8 @@ const StudentPage = ({userID, name}) => {
         e.preventDefault();
 
         const payload = {
-            key:multiSelect
+            answer:multiSelect,
+            submitted: true
         }
 
 
@@ -86,7 +90,8 @@ const StudentPage = ({userID, name}) => {
         e.preventDefault();
 
         const payload={
-            key:fillInBlank
+            answer:fillInBlank,
+            submitted: true
         }
 
         const requestOptions =({
@@ -110,71 +115,42 @@ const StudentPage = ({userID, name}) => {
         {questions && questions.map(question =>{
              
             return(
-            <>  {question.type === 'MC'?(
-                <>
-                    <form onSubmit={handleMultipleChoice}>
-                        <FormLabel component="legend">{question.title}</FormLabel>
-                        <RadioGroup value={multipleChoice} onChange={radioButtonValue}>
-                            <FormControlLabel value="2016" control={<Radio />} label={question.options[0]}/>
-                            <FormControlLabel value="1976" control={<Radio />} label={question.options[1]} />
-                            <FormControlLabel value="2002" control={<Radio />} label={question.options[2]} />
-                            <FormControlLabel value="1999" control={<Radio />} label={question.options[3]} />
-                        </RadioGroup>
-                        <Button type="submit" variant="contained" color="secondary" value="submit">submit</Button>
-                    </form>
-                
-                </>
-                )
-                :question.type === 'MS'?(
-                <>
-                <form onSubmit={handleMultiSelect}>
-                    <FormLabel>{question.title}</FormLabel>
-                    <FormGroup>
-                            <FormControlLabel
-                                control={<Checkbox onChange={checkBoxValue} value="Technicall Illustration" name={question.options[0]} />}
-                                label={question.options[0]}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox  onChange={checkBoxValue} value="Instructional Design" name={question.options[1]} />}
-                                label={question.options[1]}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox onChange={checkBoxValue} value="Financial Advice" name={question.options[2]} />}
-                                label={question.options[2]}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox onChange={checkBoxValue} value="Admission and Registration" name={question.options[3]} />}
-                                label={question.options[3]}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox onChange={checkBoxValue} value="Audio-visual Loans" name={question.options[4]} />}
-                                label={question.options[4]}
-                            />
-                        </FormGroup>
-                        <Button type="submit" variant="contained" color="secondary" value="submit">submit</Button>
-                    </form> 
-                </>
-                )
-                :(
+                <>  
+                    {!question.submitted?
                     <>
-                    <form onSubmit={handleFillIn}>
-                        <FormLabel>{question.title}</FormLabel>
-                        <TextField variant="outlined" onChange={fillInValue} fullWidth />
-                        <Button type="submit" variant="contained" color="secondary" value="submit">submit</Button>
-                    </form>
-                    </>)
-                }
-                
-            </>
+                        {question.type === 'MC'?(
+                            <Assignment1 
+                                handleMultipleChoice={handleMultipleChoice}
+                                multipleChoice={multipleChoice}
+                                radioButtonValue={radioButtonValue}
+                                question={question}
+                            />
+                        
+                            )
+                            :question.type === 'MS'?(
+                            <Assignment2
+                                question={question}
+                                handleMultiSelect={handleMultiSelect}
+                                checkBoxValue={checkBoxValue}
+                            />
+                            )
+                            :(
+                            
+                            <Assignment3
+                                question={question}
+                                handleFillIn={handleFillIn}
+                                fillInValue={fillInValue}
+                            />
+                            )
+                        } 
+                    </>
+                    :<h1>Question is submitted. Awaiting Instructor feedback</h1>
+                    }
+                </>
             )
-           
         })}
-
         </>
     )
-
-
-
 
 }
 
