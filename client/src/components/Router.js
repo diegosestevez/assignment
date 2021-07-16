@@ -7,13 +7,13 @@ import FrontPage from "../Pages/FrontPage.js";
 
 
 const Routes = () => {
-    const [instructorID, setInstructorID] = useState('');
-    const [studentID1, setStudentID1] = useState('');
-    const [studentID2, setStudentID2] = useState('');
-    const [studentID3, setStudentID3] = useState('');
-    const [studentName1, setStudentName1] = useState('');
-    const [studentName2, setStudentName2] = useState('');
-    const [studentName3, setStudentName3] = useState('');
+    const [instructorID, setInstructorID] = useState([]);
+    const [studentID1, setStudentID1] = useState([]);
+    const [studentID2, setStudentID2] = useState([]);
+    const [studentID3, setStudentID3] = useState([]);
+    const [studentName1, setStudentName1] = useState([]);
+    const [studentName2, setStudentName2] = useState([]);
+    const [studentName3, setStudentName3] = useState([]);
     
     useEffect(()=>{
       fetch('http://localhost:8000/users')

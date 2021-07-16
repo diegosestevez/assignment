@@ -7,4 +7,6 @@ router.route('/')
  .get(assignmentController.getStudentAssignments)
  .delete(assignmentController.deleteAssignments)
 
+ router.route('/submit').post(assignmentController.postAssignment)
+
  module.exports = router;

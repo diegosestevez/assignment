@@ -15,26 +15,10 @@ try{
     
 } 
 
-// exports.getAllAssignments = async (req, res) => {
-//     try{
-//         const assignment = await Assignment.find();
-//         res.status(200).json({
-//             message: 'success',
-//             assignment
-//         })
-
-//     }catch(err){
-//         res.status(404).json({
-//             message: 'failed',
-//             error: err
-//         })
-//     }
-// }
-
 exports.getStudentAssignments = async (req, res) => {
     
-        // console.log(req.query.user)
-        //example query --> assign?user=60ededa3747585039cac84e7
+        
+        //example query.user --> assign?user=60ededa3747585039cac84e7
         if(req.query.user){
             try{
                 const assignmentData = await Assignment.find({user_id: req.query.user});
@@ -81,5 +65,11 @@ exports.deleteAssignments = async (req, res) => {
         message: 'something went really wrong if you can see this'
     })
 }
+}
+
+
+exports.postAssignment = async (req, res) => {
+    console.log(req.body);
+    res.end();
 }
 

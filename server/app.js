@@ -3,12 +3,15 @@ const cors = require("cors");
 const assignRouter = require('./Routes/assignmentRoutes');
 const userRouter = require('./Routes/userRoutes');
 const app = express();
+const bodyParser = require('body-parser')
 
 var corsOptions = {
     origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions));
+
+app.use(bodyParser.json());
 
 app.use('/users', userRouter);
 app.use('/assign', assignRouter);
