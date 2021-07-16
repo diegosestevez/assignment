@@ -1,7 +1,8 @@
 POST http://localhost:8000/assign/submit
-
 Content-Type: application/json
 
 {
-    "body":"hello world"
+    "answer":"fillInBlank",
+    "submitted": true,
+    "user_id": "60f1cdbd39deca0480dd2b86"
 }

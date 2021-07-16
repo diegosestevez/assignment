@@ -27,7 +27,7 @@ const assignmentSchema = new mongoose.Schema({
     submitted: { type: Boolean, default: false },
     status: { type: String, default: 'Not Started' },
     score: { type: Number, default: 0 },
-    answer:{type: String},
+    answer:{type: mongoose.Mixed},
     options:[Array]
 });
 

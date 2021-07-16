@@ -44,12 +44,14 @@ const StudentPage = ({userID, name}) => {
 
         const payload = {
             answer:multipleChoice,
-            submitted: true
+            submitted: true,
+            user_id: userID,
+            type:'MC'
         }
 
 
         const requestOptions =({
-            method:'POST',
+            method:'PATCH',
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify(payload)
         })
@@ -68,12 +70,14 @@ const StudentPage = ({userID, name}) => {
 
         const payload = {
             answer:multiSelect,
-            submitted: true
+            submitted: true,
+            user_id: userID,
+            type:'MS'
         }
 
 
         const requestOptions =({
-            method:'POST',
+            method:'PATCH',
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify(payload)
         })
@@ -91,11 +95,13 @@ const StudentPage = ({userID, name}) => {
 
         const payload={
             answer:fillInBlank,
-            submitted: true
+            submitted: true,
+            user_id: userID,
+            type:'FIB'
         }
 
         const requestOptions =({
-            method:'POST',
+            method:'PATCH',
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify(payload)
         })
@@ -111,7 +117,7 @@ const StudentPage = ({userID, name}) => {
 
     return (
         <>
-        
+         <h1>Hello {name}</h1>
         {questions && questions.map(question =>{
              
             return(

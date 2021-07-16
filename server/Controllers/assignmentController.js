@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const Assignment = require('./../Models/assignmentModel');
 
 
@@ -70,6 +71,21 @@ exports.deleteAssignments = async (req, res) => {
 
 exports.postAssignment = async (req, res) => {
     console.log(req.body);
-    res.end();
+    //req.body must contain {
+    // submitted: true,
+    // answer: 'whatever',
+    // user_id: id
+    //type: type
+    //}
+
+   try{
+    await Assignment.findOneAndUpdate({user_id: req.body.user_id, type:req.body.type}, 
+        {answer:req.body.answer, submitted:req.body.submitted},
+        {new:true})
+   }catch(err){
+    res.status(404).json({
+        message:'document failed to update'
+    })
+   }
 }
 
