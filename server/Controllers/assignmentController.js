@@ -43,7 +43,7 @@ exports.getStudentAssignments = async (req, res) => {
             const assignmentData = await Assignment.find()
             res.status(200).json({
                 message:'No user query found. Returning all assignments in Database',
-                assignmentData
+                assignmentData: assignmentData
             })
         }catch(err){
             res.status(500).json({

@@ -30,7 +30,16 @@ const StudentPage = ({userID, name}) => {
     };
 
     const checkBoxValue = (e) => {
-        setMultSelect({...multiSelect, [e.target.name]: e.target.checked})
+        // setMultSelect({...multiSelect, [e.target.name]: e.target.checked})
+        if(e.target.checked){
+            setMultSelect([...multiSelect,e.target.value])
+            // console.log(multiSelect)
+        }else{
+            let removeItem = multiSelect.filter(item => item !== e.target.value)
+            setMultSelect(removeItem)
+            // console.log(multiSelect);
+        }
+           
     };
 
     const fillInValue = (e) => {

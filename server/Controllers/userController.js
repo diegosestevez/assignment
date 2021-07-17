@@ -32,22 +32,6 @@ let userObj = [
     }
 ]
 
-// let questionData = [
-//     {
-//         title: "When Was BCIT's 50th-annniversary celebration ?",
-//         options: ["2016", "1976", "2002", "1999"]
-//     },
-//     {
-//         title: "Which of the following services does the LTC provide ? Select all that apply.",
-//         type: 'MC',
-//         options: ['Technicall Illustration', 'Instructional Design', 'Financial Advice', 'Admission and Registration', 'Audio-visual Loans']
-//     },
-//     {
-//         title: "The current Prime Minister in Canada is (include the starting year for the PM).",
-//         type: 'FIB',
-//     }
-// ]
-
 let assignObj = [
     {
         title: "When Was BCIT's 50th-annniversary celebration ?",
@@ -93,6 +77,7 @@ exports.createDefaultUsers = async () =>{
                  assignObj.forEach((i)=>{
                     assignment.createAssignment({
                          user_id: data._id,
+                         name: data.name,
                          title: i.title,
                          type: i.type,
                          options: i.options,
