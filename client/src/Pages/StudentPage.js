@@ -40,6 +40,7 @@ const StudentPage = ({userID, name}) => {
     
 
     function handleMultipleChoice(e){
+        alert("Assignment was submitted!")
         e.preventDefault();
 
         const payload = {
@@ -60,12 +61,13 @@ const StudentPage = ({userID, name}) => {
         fetch('http://localhost:8000/assign/submit', requestOptions)
         .then(res => res.json())
         .then(data => setPostId(data.id))
-        .catch(err => console.log(err))  
+        .catch(err => console.log(err)) 
          
     }
 
 
     function handleMultiSelect(e){
+        alert("Assignment was submitted!")
         e.preventDefault();
 
         const payload = {
@@ -91,6 +93,8 @@ const StudentPage = ({userID, name}) => {
 
 
     function handleFillIn(e){
+        alert("Assignment was submitted!")
+
         e.preventDefault();
 
         const payload={
@@ -114,7 +118,7 @@ const StudentPage = ({userID, name}) => {
 
     }
 
-
+    
     return (
         <>
          <h1>Hello {name}</h1>
