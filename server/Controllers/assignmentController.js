@@ -68,8 +68,15 @@ exports.deleteAssignments = async (req, res) => {
 
 exports.postAssignment = async (req, res) => {
    try{
-    await Assignment.findOneAndUpdate({user_id: req.body.user_id, type:req.body.type}, 
-        {answer:req.body.answer, submitted:req.body.submitted},
+    await Assignment.findOneAndUpdate(
+        {
+            user_id: req.body.user_id, 
+            type:req.body.type
+        }, 
+        {
+            answer:req.body.answer, 
+            submitted:req.body.submitted
+        },
         {new:true})
    }catch(err){
     res.status(404).json({
@@ -83,7 +90,10 @@ exports.markAssignment = async (req, res) => {
     try{
         console.log(req.body)
         await Assignment.findOneAndUpdate({_id:req.body.id},
-            {score: req.body.score}, 
+            {
+                score: req.body.score, 
+                status: req.body.status
+            }, 
             {new:true})
     }catch(err){
         res.status(404).json({

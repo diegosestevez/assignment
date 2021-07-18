@@ -1,12 +1,13 @@
-import React,{useEffect, useState} from 'react'
-import { Typography, Grid, FormLabel, TextField, Button } from '@material-ui/core'
+import React,{useEffect, useState} from 'react';
+import Marking from '../components/Marking';
+import { Typography, Button } from '@material-ui/core';
+import {Link} from "react-router-dom";
 
 const InstructorPage = () => {
 
     const [assignments, setAssignments] = useState([])
     const [mark, setMark] = useState(0)
     const[postId, setPostId] = useState(null);
-    const[userId, setUserId] = useState(null);
     
     useEffect(()=>{
         fetch(`http://localhost:8000/assign`)
@@ -25,6 +26,7 @@ const InstructorPage = () => {
 
         const payload = {
             score: mark,
+            status: 'Finished',
             id: e.target.id
         }
 
@@ -42,7 +44,9 @@ const InstructorPage = () => {
   
     }
 
-    
+    const updateMarks = (e) => {
+        setMark(e.target.value)
+    }
 
 
     return (
@@ -51,35 +55,32 @@ const InstructorPage = () => {
        {assignments && assignments.map(assignment =>{           
            return(
                <>
-                    {assignment.submitted?
-                    <>
-                       <form onSubmit={handleMarks} id={assignment._id}>
-                           <h3>{assignment.name}</h3>
-                            <FormLabel>{assignment.title}</FormLabel>
-                            <Typography variant="body1" gutterBottom>Student Answer:
-                                <Typography variant="body2">{assignment.answer}</Typography>
-                            </Typography>
-                            <TextField
-                                required
-                                id="outlined-required"
-                                label="Score Required"
-                                variant="outlined"
-                                onChange={(e) => setMark(e.target.value)}
-                            />
-                            <Button type="submit" variant="contained" color="secondary" value="submit">Grade Assignment</Button>
-                       </form>
-                       
-                    </>
-                    :
+                    {assignment.submitted && assignment.status === 'Started'?(
+                    <Marking
+                        assignment={assignment}
+                        handleMarks={handleMarks}
+                        updateMarks={updateMarks}
+                    />
+                    )
+                    :!assignment.submitted?(
                     <>
                         <Typography variant="body1">{assignment.title}</Typography>
                         <Typography variant="body2">student has not submitted assignment</Typography>
                     </>
+                    )
+                    :(
+                        <>
+                        <Typography variant="h5">{assignment.name}</Typography>
+                        <Typography variant="body1">Question: {assignment.title}</Typography>
+                        <Typography variant="body1"> Score Received: {assignment.score}</Typography>
+                        </>
+                    )
                     }
                </>
                )
        }
        )}
+       <Button component={Link} to='/home' variant="contained" color="primary">Back</Button>
        </>
     )
 }

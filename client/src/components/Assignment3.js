@@ -5,9 +5,9 @@ const Assignment3 = ({question, handleFillIn, fillInValue}) => {
     const [removeForm, setRemoveForm] = useState({})
 
     const handleChange = () => {
-    setRemoveForm({
-        display:'none'
-    })
+        setRemoveForm({
+            display:'none'
+        })
     }
 
 

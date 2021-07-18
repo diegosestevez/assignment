@@ -6,9 +6,9 @@ const Assignment2 = ({question, handleMultiSelect, checkBoxValue}) => {
     const [removeForm, setRemoveForm] = useState({})
 
     const handleChange = () => {
-    setRemoveForm({
-        display:'none'
-    })
+        setRemoveForm({
+            display:'none'
+        })
     }
 
     return (

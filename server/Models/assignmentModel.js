@@ -26,8 +26,8 @@ const assignmentSchema = new mongoose.Schema({
     type: {type: String, required: true},
     description: { type: String, default: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.' },
     submitted: { type: Boolean, default: false },
-    status: { type: String, default: 'Not Started' },
-    score: { type: Number, default: 0 },
+    status: { type: String, default: 'Started' },
+    score: { type: Number},
     answer:{type: mongoose.Mixed},
     options:[Array]
 });

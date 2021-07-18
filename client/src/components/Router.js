@@ -7,7 +7,7 @@ import FrontPage from "../Pages/FrontPage.js";
 
 
 const Routes = () => {
-    const [instructorID, setInstructorID] = useState([]);
+
     const [studentID1, setStudentID1] = useState([]);
     const [studentID2, setStudentID2] = useState([]);
     const [studentID3, setStudentID3] = useState([]);

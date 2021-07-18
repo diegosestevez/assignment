@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import {Link} from "react-router-dom";
 import Assignment1 from '../components/Assignment1';
 import Assignment2 from '../components/Assignment2';
 import Assignment3 from '../components/Assignment3';
+import { Button } from '@material-ui/core';
 
 
 const StudentPage = ({userID, name}) => {
@@ -168,6 +170,7 @@ const StudentPage = ({userID, name}) => {
                 </>
             )
         })}
+         <Button component={Link} to='/home' variant="contained" color="primary">Back</Button>
         </>
     )
 

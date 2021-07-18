@@ -8,5 +8,7 @@ router.route('/')
 // .get(userController.createDefaultUsers)
 .delete(userController.deleteAllUsers)
 
+router.route('/create')
+.get(userController.createDefaultUsers)
 
 module.exports = router;
