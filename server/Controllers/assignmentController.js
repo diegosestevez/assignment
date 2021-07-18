@@ -17,9 +17,6 @@ try{
 } 
 
 exports.getStudentAssignments = async (req, res) => {
-    
-        
-        //example query.user --> assign?user=60ededa3747585039cac84e7
         if(req.query.user){
             try{
                 const assignmentData = await Assignment.find({user_id: req.query.user});
@@ -70,14 +67,6 @@ exports.deleteAssignments = async (req, res) => {
 
 
 exports.postAssignment = async (req, res) => {
-    console.log(req.body);
-    //req.body must contain {
-    // submitted: true,
-    // answer: 'whatever',
-    // user_id: id
-    //type: type
-    //}
-
    try{
     await Assignment.findOneAndUpdate({user_id: req.body.user_id, type:req.body.type}, 
         {answer:req.body.answer, submitted:req.body.submitted},
@@ -89,3 +78,16 @@ exports.postAssignment = async (req, res) => {
    }
 }
 
+
+exports.markAssignment = async (req, res) => {
+    try{
+        console.log(req.body)
+        await Assignment.findOneAndUpdate({_id:req.body.id},
+            {score: req.body.score}, 
+            {new:true})
+    }catch(err){
+        res.status(404).json({
+            message: 'document failed to update'
+        })
+    }
+}

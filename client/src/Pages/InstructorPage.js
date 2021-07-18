@@ -4,6 +4,9 @@ import { Typography, Grid, FormLabel, TextField, Button } from '@material-ui/cor
 const InstructorPage = () => {
 
     const [assignments, setAssignments] = useState([])
+    const [mark, setMark] = useState(0)
+    const[postId, setPostId] = useState(null);
+    const[userId, setUserId] = useState(null);
     
     useEffect(()=>{
         fetch(`http://localhost:8000/assign`)
@@ -16,6 +19,32 @@ const InstructorPage = () => {
     },[])
 
 
+    const handleMarks = (e) => {
+        alert('mark submitted')
+        e.preventDefault();
+
+        const payload = {
+            score: mark,
+            id: e.target.id
+        }
+
+        const requestOptions =({
+            method:'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify(payload)
+        })
+    
+
+        fetch('http://localhost:8000/assign/mark', requestOptions)
+        .then(res => res.json())
+        .then(data => setPostId(data.id))
+        .catch(err => console.log(err)) 
+  
+    }
+
+    
+
+
     return (
        <>
        <Typography variant="h2">Welcome Instructor</Typography>
@@ -24,7 +53,7 @@ const InstructorPage = () => {
                <>
                     {assignment.submitted?
                     <>
-                       <form>
+                       <form onSubmit={handleMarks} id={assignment._id}>
                            <h3>{assignment.name}</h3>
                             <FormLabel>{assignment.title}</FormLabel>
                             <Typography variant="body1" gutterBottom>Student Answer:
@@ -34,11 +63,12 @@ const InstructorPage = () => {
                                 required
                                 id="outlined-required"
                                 label="Score Required"
-                                defaultValue={assignment.score}
                                 variant="outlined"
+                                onChange={(e) => setMark(e.target.value)}
                             />
+                            <Button type="submit" variant="contained" color="secondary" value="submit">Grade Assignment</Button>
                        </form>
-                       <Button type="submit" variant="contained" color="secondary" value="submit">Grade Assignment</Button>
+                       
                     </>
                     :
                     <>

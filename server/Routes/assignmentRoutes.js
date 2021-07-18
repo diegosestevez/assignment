@@ -7,6 +7,10 @@ router.route('/')
  .get(assignmentController.getStudentAssignments)
  .delete(assignmentController.deleteAssignments)
 
- router.route('/submit').patch(assignmentController.postAssignment)
+router.route('/submit')
+ .patch(assignmentController.postAssignment)
+
+router.route('/mark')
+ .patch(assignmentController.markAssignment)
 
  module.exports = router;
