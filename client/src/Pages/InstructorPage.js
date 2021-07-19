@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import Marking from '../components/Marking';
 import { Typography, Button, Grid, Paper } from '@material-ui/core';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import useStyles from './styles/styles';
 
 const InstructorPage = () => {
@@ -11,6 +11,8 @@ const InstructorPage = () => {
     const [assignments, setAssignments] = useState([])
     const [mark, setMark] = useState(0)
     const[postId, setPostId] = useState(null);
+
+    const [disable, setDisable] = useState(false)
     
     useEffect(()=>{
         fetch(`http://localhost:8000/assign`)
@@ -48,7 +50,10 @@ const InstructorPage = () => {
         .then(res => res.json())
         .then(data => setPostId(data.id))
         .catch(err => console.log(err)) 
-  
+
+        //This is Janky but it fixes the problem of the submit button 
+        //not being able to dissappear after user submits marks
+        window.location.reload();
     }
 
     const updateMarks = (e) => {
@@ -67,6 +72,7 @@ const InstructorPage = () => {
                         assignment={assignment}
                         handleMarks={handleMarks}
                         updateMarks={updateMarks}
+                        disable={disable}
                     />
                     )
                     :!assignment.submitted?(

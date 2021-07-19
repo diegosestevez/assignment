@@ -24,7 +24,7 @@ let userObj = [
 
     },
     {
-        name: 'Mike Niaegi',
+        name: 'Mike Naegi',
         username: 'ab1',
         usertype: 'Student',
         email: 'Mike Niaegi@gmail.com'

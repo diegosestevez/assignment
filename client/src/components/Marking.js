@@ -2,7 +2,7 @@ import { Typography, FormLabel, TextField, Button, Paper } from '@material-ui/co
 import useStyles from './styles/styles';
 
 
-const Marking = ({handleMarks, assignment, updateMarks}) => {
+const Marking = ({handleMarks, assignment, updateMarks, disable}) => {
     const classes = useStyles();    
 
     return (
@@ -21,7 +21,7 @@ const Marking = ({handleMarks, assignment, updateMarks}) => {
                     className={classes.form}
                     onChange={updateMarks}
                 />
-                <Button className="marking" type="submit" variant="contained" color="secondary" value="submit">Grade Assignment</Button>
+                <Button className="marking" type="submit" variant="contained" color="secondary" value="submit" disabled={disable}>Grade Assignment</Button>
         </form>
     </Paper>
     )
