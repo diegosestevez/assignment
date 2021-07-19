@@ -1,22 +1,27 @@
 import React, {useState, useEffect} from 'react';
-import { TextField,  FormLabel, Button} from '@material-ui/core';
+import { TextField,  FormLabel, Button, Paper} from '@material-ui/core';
+import useStyles from './styles/styles'
 
 const Assignment3 = ({question, handleFillIn, fillInValue}) => {
+    const classes = useStyles()
 
     return (
-        <>
-        <form onSubmit={handleFillIn} >
-            <FormLabel>{question.title}</FormLabel>
-            <TextField variant="outlined"
-             name='assignment3'
-             required
-             inputProps={{pattern:'([a-zA-Z]+\\s)[0-9]+'}}
-             onChange={fillInValue} 
-             helperText="Must contain letters + exactly 1 white space + numbers. (Example: 'three 1993')"
-             fullWidth />
-            <Button id="assign3" type="submit" variant="contained" color="secondary" value="submit">submit</Button>
-        </form>
-        </>
+        <Paper elevation={3} className={classes.paper}>
+            <form onSubmit={handleFillIn} >
+                <FormLabel> {question.title}</FormLabel>
+                    <TextField 
+                        variant="outlined"
+                        name='assignment3'
+                        required
+                        inputProps={{pattern:'([a-zA-Z]+\\s)[0-9]+'}}
+                        onChange={fillInValue} 
+                        helperText="Must contain letters + exactly 1 white space + numbers. (Example: 'three 1993')"
+                        className={classes.form}
+                        fullWidth 
+                    />
+                    <Button id="assign3" type="submit" variant="contained" color="secondary" value="submit">submit</Button>
+            </form>
+        </Paper>
     )
 }
 

@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import Assignment1 from '../components/Assignment1';
 import Assignment2 from '../components/Assignment2';
 import Assignment3 from '../components/Assignment3';
-import { Button, Paper, Typography } from '@material-ui/core';
+import { Button, Paper, Typography, Grid } from '@material-ui/core';
 import useStyles from './styles/styles';
 
 
@@ -144,7 +144,7 @@ const StudentPage = ({userID, name}) => {
     
     return (
         <>
-         <h1>Hello {name}</h1>
+         <Typography variant="h3" className={classes.centerText}>Hello {name}</Typography>
         {questions && questions.map(question =>{
              
             return(
@@ -181,8 +181,8 @@ const StudentPage = ({userID, name}) => {
                     (
                     <>
                         <Paper elevation={3} className={classes.paper}>
-                            <Typography variant='h5' gutterBottom>{question.title}</Typography>
-                            <Typography variant="subtitle2">Your Score: {question.score}</Typography>
+                            <Typography variant='h5' className={classes.centerText} gutterBottom>{question.title}</Typography>
+                            <Typography variant="subtitle2" className={classes.centerText}>Your Score: {question.score}</Typography>
                         </Paper>   
                     </>
                     )
@@ -190,7 +190,7 @@ const StudentPage = ({userID, name}) => {
                     (
                         <>
                             <Paper elevation={3} className={classes.paper}>
-                                <Typography variant='body1'>Question is submitted. Awaiting Instructor feedback</Typography>
+                                <Typography variant='body1' className={classes.centerText}>Question is submitted. Awaiting Instructor feedback</Typography>
                             </Paper>
                         </>
                     )
@@ -198,7 +198,9 @@ const StudentPage = ({userID, name}) => {
                 </>
             )
         })}
-         <Button component={Link} to='/home' variant="contained" color="primary">Back</Button>
+         <Grid container justifyContent="center">
+            <Button component={Link} to='/home' variant="contained" color="primary">Back</Button>
+         </Grid>
         </>
     )
 

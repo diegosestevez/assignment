@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
-import { FormControlLabel, FormGroup, FormLabel, Checkbox, Button} from '@material-ui/core';
+import { FormControlLabel, FormGroup, FormLabel, Checkbox, Button, Paper} from '@material-ui/core';
+import useStyles from './styles/styles'
 
 const Assignment2 = ({question, handleMultiSelect, checkBoxValue}) => {
-    
+    const classes = useStyles();
+
     return (
-        <>
+        <Paper elevation={3} className={classes.paper}>
             <form onSubmit={handleMultiSelect} >
                 <FormLabel>{question.title}</FormLabel>
-                    <FormGroup>
+                    <FormGroup className={classes.form}>
                         <FormControlLabel
                             control={<Checkbox onChange={checkBoxValue} value="Technicall Illustration" name={question.options[0]} />}
                             label={question.options[0]}
@@ -31,7 +33,7 @@ const Assignment2 = ({question, handleMultiSelect, checkBoxValue}) => {
                     </FormGroup>
                 <Button id="assign2" type="submit" variant="contained" color="secondary" value="submit">submit</Button>
             </form> 
-        </>
+        </Paper>
     )
 }
 
