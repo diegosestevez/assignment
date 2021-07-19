@@ -20,9 +20,11 @@ const Marking = ({handleMarks, assignment, updateMarks}) => {
          </Typography>
          <TextField
              required
-             id="outlined-required"
-             label="Score Required"
+             type="number"
+             label="Score"
+             helperText="Numerical Value Only"
              variant="outlined"
+             size="small"
              onChange={updateMarks}
          />
          <Button type="submit" variant="contained" color="secondary" value="submit" onClick={hideForm}>Grade Assignment</Button>

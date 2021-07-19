@@ -32,14 +32,12 @@ const StudentPage = ({userID, name}) => {
     };
 
     const checkBoxValue = (e) => {
-        // setMultSelect({...multiSelect, [e.target.name]: e.target.checked})
+    
         if(e.target.checked){
             setMultSelect([...multiSelect,e.target.value])
-            // console.log(multiSelect)
         }else{
             let removeItem = multiSelect.filter(item => item !== e.target.value)
             setMultSelect(removeItem)
-            // console.log(multiSelect);
         }
            
     };
@@ -53,6 +51,8 @@ const StudentPage = ({userID, name}) => {
     function handleMultipleChoice(e){
         alert("Assignment was submitted!")
         e.preventDefault();
+
+        
 
         const payload = {
             answer:multipleChoice,
@@ -81,6 +81,8 @@ const StudentPage = ({userID, name}) => {
         alert("Assignment was submitted!")
         e.preventDefault();
 
+      
+
         const payload = {
             answer:multiSelect,
             submitted: true,
@@ -105,8 +107,9 @@ const StudentPage = ({userID, name}) => {
 
     function handleFillIn(e){
         alert("Assignment was submitted!")
-
         e.preventDefault();
+
+       
 
         const payload={
             answer:fillInBlank,
@@ -165,7 +168,17 @@ const StudentPage = ({userID, name}) => {
                             )
                         } 
                     </>
-                    :<h1>Question is submitted. Awaiting Instructor feedback</h1>
+                    :question.status === 'Finished'?
+                    (
+                    <>
+                        <h2>{question.title}</h2>
+                        <h3>Your Score{question.score}</h3>
+                    </>
+                    )
+                    :
+                    (
+                        <h1>Question is submitted. Awaiting Instructor feedback</h1>
+                    )
                     }
                 </>
             )

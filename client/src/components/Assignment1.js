@@ -7,9 +7,9 @@ const Assignment1 = ({question, multipleChoice, handleMultipleChoice, radioButto
 
     //Cheap little hack that solves problem of passing data to api and removing the form, there must be a better way...
     const handleChange = () => {
-        setRemoveForm({
-            display:'none'
-        })
+    setRemoveForm({
+        display:'none'
+    })
     }
 
 
