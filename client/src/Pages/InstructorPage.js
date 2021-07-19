@@ -24,6 +24,10 @@ const InstructorPage = () => {
         alert('mark submitted')
         e.preventDefault();
 
+        (() => {
+            document.getElementById('marking').style.display = 'none';
+        })()
+
         const payload = {
             score: mark,
             status: 'Finished',

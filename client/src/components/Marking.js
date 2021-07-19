@@ -27,7 +27,7 @@ const Marking = ({handleMarks, assignment, updateMarks}) => {
              size="small"
              onChange={updateMarks}
          />
-         <Button type="submit" variant="contained" color="secondary" value="submit" onClick={hideForm}>Grade Assignment</Button>
+         <Button id="marking" type="submit" variant="contained" color="secondary" value="submit" onClick={hideForm}>Grade Assignment</Button>
     </form>
     )
 }

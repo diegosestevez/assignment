@@ -8,12 +8,12 @@ import { Button } from '@material-ui/core';
 
 const StudentPage = ({userID, name}) => {
  const [questions, setQuestions] = useState(null);
+ const[postId, setPostId] = useState(null);
  
  const [multipleChoice, setMultipleChoice] = useState(null);
  const [multiSelect, setMultSelect] = useState([]);
  const [fillInBlank, setFillInBlank] = useState('');
-
- const[postId, setPostId] = useState(null);
+ 
 
     useEffect(()=>{
         fetch(`http://localhost:8000/assign?user=${userID}`)
@@ -52,7 +52,10 @@ const StudentPage = ({userID, name}) => {
         alert("Assignment was submitted!")
         e.preventDefault();
 
-        
+        (() => {
+            document.getElementById('assign1').style.display = 'none';
+        })()
+
 
         const payload = {
             answer:multipleChoice,
@@ -81,7 +84,9 @@ const StudentPage = ({userID, name}) => {
         alert("Assignment was submitted!")
         e.preventDefault();
 
-      
+        (() => {
+            document.getElementById('assign2').style.display = 'none';
+        })()
 
         const payload = {
             answer:multiSelect,
@@ -109,7 +114,9 @@ const StudentPage = ({userID, name}) => {
         alert("Assignment was submitted!")
         e.preventDefault();
 
-       
+       (() => {
+         document.getElementById('assign3').style.display = 'none';
+       })()
 
         const payload={
             answer:fillInBlank,

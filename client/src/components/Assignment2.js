@@ -3,17 +3,9 @@ import { FormControlLabel, FormGroup, FormLabel, Checkbox, Button} from '@materi
 
 const Assignment2 = ({question, handleMultiSelect, checkBoxValue}) => {
     
-    const [removeForm, setRemoveForm] = useState({})
-
-    const handleChange = () => {
-    setRemoveForm({
-        display:'none'
-    })
-    }
-
     return (
         <>
-            <form onSubmit={handleMultiSelect} style={removeForm}>
+            <form onSubmit={handleMultiSelect} >
                 <FormLabel>{question.title}</FormLabel>
                     <FormGroup>
                         <FormControlLabel
@@ -37,7 +29,7 @@ const Assignment2 = ({question, handleMultiSelect, checkBoxValue}) => {
                             label={question.options[4]}
                         />
                     </FormGroup>
-                <Button type="submit" variant="contained" color="secondary" value="submit" onClick={handleChange}>submit</Button>
+                <Button id="assign2" type="submit" variant="contained" color="secondary" value="submit">submit</Button>
             </form> 
         </>
     )
