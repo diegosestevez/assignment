@@ -3,7 +3,8 @@ import {Link} from "react-router-dom";
 import Assignment1 from '../components/Assignment1';
 import Assignment2 from '../components/Assignment2';
 import Assignment3 from '../components/Assignment3';
-import { Button } from '@material-ui/core';
+import { Button, Paper, Typography } from '@material-ui/core';
+import useStyles from './styles/styles';
 
 
 const StudentPage = ({userID, name}) => {
@@ -139,6 +140,7 @@ const StudentPage = ({userID, name}) => {
 
     }
 
+    const classes = useStyles();
     
     return (
         <>
@@ -178,13 +180,19 @@ const StudentPage = ({userID, name}) => {
                     :question.status === 'Finished'?
                     (
                     <>
-                        <h2>{question.title}</h2>
-                        <h3>Your Score{question.score}</h3>
+                        <Paper elevation={3} className={classes.paper}>
+                            <Typography variant='h5' gutterBottom>{question.title}</Typography>
+                            <Typography variant="subtitle2">Your Score: {question.score}</Typography>
+                        </Paper>   
                     </>
                     )
                     :
                     (
-                        <h1>Question is submitted. Awaiting Instructor feedback</h1>
+                        <>
+                            <Paper elevation={3} className={classes.paper}>
+                                <Typography variant='body1'>Question is submitted. Awaiting Instructor feedback</Typography>
+                            </Paper>
+                        </>
                     )
                     }
                 </>
