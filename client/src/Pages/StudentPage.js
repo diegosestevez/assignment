@@ -8,12 +8,15 @@ import useStyles from './styles/styles';
 
 
 const StudentPage = ({userID, name}) => {
- const [questions, setQuestions] = useState(null);
- const[postId, setPostId] = useState(null);
- 
- const [multipleChoice, setMultipleChoice] = useState(null);
- const [multiSelect, setMultSelect] = useState([]);
- const [fillInBlank, setFillInBlank] = useState('');
+
+    const classes = useStyles();
+
+    const [questions, setQuestions] = useState(null);
+    const[postId, setPostId] = useState(null);
+    
+    const [multipleChoice, setMultipleChoice] = useState(null);
+    const [multiSelect, setMultSelect] = useState([]);
+    const [fillInBlank, setFillInBlank] = useState('');
  
 
     useEffect(()=>{
@@ -140,7 +143,6 @@ const StudentPage = ({userID, name}) => {
 
     }
 
-    const classes = useStyles();
     
     return (
         <>
@@ -181,7 +183,7 @@ const StudentPage = ({userID, name}) => {
                     (
                     <>
                         <Paper elevation={3} className={classes.paper}>
-                            <Typography variant='h5' className={classes.centerText} gutterBottom>{question.title}</Typography>
+                            <Typography variant='subtitle1' className={classes.centerText} gutterBottom>{question.title}</Typography>
                             <Typography variant="subtitle2" className={classes.centerText}>Your Score: {question.score}</Typography>
                         </Paper>   
                     </>

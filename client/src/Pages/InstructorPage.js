@@ -1,9 +1,12 @@
 import React,{useEffect, useState} from 'react';
 import Marking from '../components/Marking';
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, Grid, Paper } from '@material-ui/core';
 import {Link} from "react-router-dom";
+import useStyles from './styles/styles';
 
 const InstructorPage = () => {
+
+    const classes = useStyles();
 
     const [assignments, setAssignments] = useState([])
     const [mark, setMark] = useState(0)
@@ -25,7 +28,7 @@ const InstructorPage = () => {
         e.preventDefault();
 
         (() => {
-            document.getElementById('marking').style.display = 'none';
+            document.querySelector('.marking').style.display = 'none';
         })()
 
         const payload = {
@@ -55,7 +58,7 @@ const InstructorPage = () => {
 
     return (
        <>
-       <Typography variant="h2">Welcome Instructor</Typography>
+       <Typography variant="h2" className={classes.centerText}>Welcome Instructor</Typography>
        {assignments && assignments.map(assignment =>{           
            return(
                <>
@@ -67,24 +70,27 @@ const InstructorPage = () => {
                     />
                     )
                     :!assignment.submitted?(
-                    <>
-                        <Typography variant="body1">{assignment.title}</Typography>
-                        <Typography variant="body2">student has not submitted assignment</Typography>
-                    </>
+                    <Paper elevation={3} className={classes.paper}>
+                        <Typography variant="h5" className={classes.centerText} gutterBottom>{assignment.name}</Typography>
+                        <Typography variant="body2" className={classes.centerText} gutterBottom>Question: {assignment.title}</Typography>
+                        <Typography variant="body1" className={classes.centerText}>student has not submitted this assignment</Typography>
+                    </Paper>
                     )
                     :(
-                        <>
-                        <Typography variant="h5">{assignment.name}</Typography>
-                        <Typography variant="body1">Question: {assignment.title}</Typography>
-                        <Typography variant="body1"> Score Received: {assignment.score}</Typography>
-                        </>
+                    <Paper elevation={3} className={classes.paper}>
+                        <Typography variant="h5" className={classes.centerText} gutterBottom>{assignment.name}</Typography>
+                        <Typography variant="body2" className={classes.centerText} gutterBottom>Question: {assignment.title}</Typography>
+                        <Typography variant="body1" className={classes.centerText}> Score Received: {assignment.score}</Typography>
+                    </Paper>
                     )
                     }
                </>
                )
        }
        )}
-       <Button component={Link} to='/home' variant="contained" color="primary">Back</Button>
+       <Grid container justifyContent='center'>
+            <Button component={Link} to='/home' variant="contained" color="primary">Back</Button>
+       </Grid>
        </>
     )
 }

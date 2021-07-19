@@ -1,34 +1,29 @@
-import React, {useState} from 'react';
-import { Typography, Grid, FormLabel, TextField, Button } from '@material-ui/core';
+import { Typography, FormLabel, TextField, Button, Paper } from '@material-ui/core';
+import useStyles from './styles/styles';
 
 
 const Marking = ({handleMarks, assignment, updateMarks}) => {
-    const [removeForm, setRemoveForm] = useState({})
-
-    const hideForm = () => {
-        setRemoveForm({
-            display:'none'
-        })
-    }
+    const classes = useStyles();    
 
     return (
-        <form onSubmit={handleMarks} id={assignment._id} style={removeForm}>
-        <h3>{assignment.name}</h3>
-         <FormLabel>{assignment.title}</FormLabel>
-         <Typography variant="body1" gutterBottom>Student Answer:
-             <Typography variant="body2">{assignment.answer}</Typography>
-         </Typography>
-         <TextField
-             required
-             type="number"
-             label="Score"
-             helperText="Numerical Value Only"
-             variant="outlined"
-             size="small"
-             onChange={updateMarks}
-         />
-         <Button id="marking" type="submit" variant="contained" color="secondary" value="submit" onClick={hideForm}>Grade Assignment</Button>
-    </form>
+        <Paper elevation={3} className={classes.paper}>
+            <form onSubmit={handleMarks} id={assignment._id}>
+                <Typography variant="h5" gutterBottom>{assignment.name}</Typography>
+                <FormLabel>{assignment.title}</FormLabel>
+                <Typography variant="body1" gutterBottom>Student Answer: {assignment.answer}</Typography>
+                <TextField
+                    required
+                    type="number"
+                    inputProps={{max:10, min:0}}
+                    helperText="Must be numerical value between 10 and 0 only"
+                    variant="outlined"
+                    size="small"
+                    className={classes.form}
+                    onChange={updateMarks}
+                />
+                <Button className="marking" type="submit" variant="contained" color="secondary" value="submit">Grade Assignment</Button>
+        </form>
+    </Paper>
     )
 }
 
