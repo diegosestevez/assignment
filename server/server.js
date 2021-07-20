@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const app = require('./app');
 
 
-mongoose.connect('mongodb://localhost:27017/DB', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false})
+// const connectionString = 'mongodb://localhost:27017/DB'
+const connectionString = 'mongodb://mongo:27017/DB'
+
+mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false})
 .then(()=>{
     console.log('connected to the database');
 })
