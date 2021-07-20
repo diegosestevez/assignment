@@ -3,7 +3,7 @@ const app = require('./app');
 
 
 // const connectionString = 'mongodb://localhost:27017/DB'
-const connectionString = 'mongodb://mongo:27017/DB'
+const connectionString = 'mongodb://database:27017/DB'
 
 mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false})
 .then(()=>{
