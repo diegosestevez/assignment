@@ -1,4 +1,3 @@
-import React, {useState, useEffect} from 'react'
 import { FormControlLabel, RadioGroup, FormLabel, Radio, Button, Paper} from '@material-ui/core'
 import useStyles from './styles/styles'
 

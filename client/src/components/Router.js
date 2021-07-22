@@ -5,9 +5,9 @@ import StudentPage from "../Pages/StudentPage";
 import FrontPage from "../Pages/FrontPage.js";
 
 
-
 const Routes = () => {
 
+    //investigate react useReducer hook when refactoring this  
     const [studentID1, setStudentID1] = useState([]);
     const [studentID2, setStudentID2] = useState([]);
     const [studentID3, setStudentID3] = useState([]);
@@ -19,8 +19,7 @@ const Routes = () => {
       fetch('http://localhost:8000/users')
       .then(res => res.json())
       .then(data => {
-
-          //investigate react useReducer state when refactoring this   
+ 
           setStudentID1(data.users[1]._id);
           setStudentID2(data.users[2]._id);
           setStudentID3(data.users[3]._id);

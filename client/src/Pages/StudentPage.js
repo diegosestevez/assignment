@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Assignment1 from '../components/Assignment1';
 import Assignment2 from '../components/Assignment2';
 import Assignment3 from '../components/Assignment3';
-import { Button, Paper, Typography, Grid } from '@material-ui/core';
+import { Paper, Typography, Grid } from '@material-ui/core';
 import useStyles from './styles/styles';
 
 
@@ -11,7 +11,6 @@ const StudentPage = ({userID, name}) => {
     const classes = useStyles();
 
     const [questions, setQuestions] = useState(null);
-    const[postId, setPostId] = useState(null);
     
     const [multipleChoice, setMultipleChoice] = useState(null);
     const [multiSelect, setMultSelect] = useState([]);
@@ -26,23 +25,21 @@ const StudentPage = ({userID, name}) => {
             console.log(data.message);
         })
         .catch(err => console.log('Error: ' + err))
-    },[])
+    },[userID])
 
 
-
+    // defines question type payload values when each question is pushed into the database //
     const radioButtonValue = (e) => {
         setMultipleChoice(e.target.value);
     };
 
     const checkBoxValue = (e) => {
-    
         if(e.target.checked){
             setMultSelect([...multiSelect,e.target.value])
         }else{
             let removeItem = multiSelect.filter(item => item !== e.target.value)
             setMultSelect(removeItem)
-        }
-           
+        }     
     };
 
     const fillInValue = (e) => {
@@ -50,7 +47,7 @@ const StudentPage = ({userID, name}) => {
     }
 
     
-
+    // Assignment handler functions //
     function handleMultipleChoice(e){
         alert("Assignment was submitted!")
         e.preventDefault();
@@ -59,7 +56,6 @@ const StudentPage = ({userID, name}) => {
             document.getElementById('assign1').style.display = 'none';
         })()
 
-
         const payload = {
             answer:multipleChoice,
             submitted: true,
@@ -67,19 +63,14 @@ const StudentPage = ({userID, name}) => {
             type:'MC'
         }
 
-
         const requestOptions =({
             method:'PATCH',
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify(payload)
         })
     
-
         fetch('http://localhost:8000/assign/submit', requestOptions)
-        .then(res => res.json())
-        .then(data => setPostId(data.id))
-        .catch(err => console.log(err)) 
-         
+        .catch(err => console.log(err))    
     }
 
 
@@ -98,17 +89,13 @@ const StudentPage = ({userID, name}) => {
             type:'MS'
         }
 
-
         const requestOptions =({
             method:'PATCH',
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify(payload)
         })
     
-
         fetch('http://localhost:8000/assign/submit', requestOptions)
-        .then(res => res.json())
-        .then(data => setPostId(data.id))
         .catch(err => console.log(err))  
     }
 
@@ -136,10 +123,7 @@ const StudentPage = ({userID, name}) => {
     
 
         fetch('http://localhost:8000/assign/submit', requestOptions)
-        .then(res => res.json())
-        .then(data => setPostId(data.id))
         .catch(err => console.log(err)) 
-
     }
 
     

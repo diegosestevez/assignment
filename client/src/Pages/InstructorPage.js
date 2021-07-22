@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import Marking from '../components/Marking';
-import { Typography, Button, Grid, Paper } from '@material-ui/core';
-import {Link, Redirect} from "react-router-dom";
+import Submit from '../components/Submit';
+import { Typography, Grid} from '@material-ui/core';
 import useStyles from './styles/styles';
 
 const InstructorPage = () => {
@@ -10,9 +10,6 @@ const InstructorPage = () => {
 
     const [assignments, setAssignments] = useState([])
     const [mark, setMark] = useState(0)
-    const[postId, setPostId] = useState(null);
-
-    const [disable, setDisable] = useState(false)
     
     useEffect(()=>{
         fetch(`http://localhost:8000/assign`)
@@ -29,10 +26,6 @@ const InstructorPage = () => {
         alert('mark submitted')
         e.preventDefault();
 
-        (() => {
-            document.querySelector('.marking').style.display = 'none';
-        })()
-
         const payload = {
             score: mark,
             status: 'Finished',
@@ -47,12 +40,10 @@ const InstructorPage = () => {
     
 
         fetch('http://localhost:8000/assign/mark', requestOptions)
-        .then(res => res.json())
-        .then(data => setPostId(data.id))
         .catch(err => console.log(err)) 
 
-        //This is Janky but it fixes the problem of the submit button 
-        //not being able to dissappear after user submits marks
+        //Understandably reloading in React is bad practice 
+        //but this make it so the user is unable to update their submission once sent
         window.location.reload();
     }
 
@@ -72,22 +63,19 @@ const InstructorPage = () => {
                         assignment={assignment}
                         handleMarks={handleMarks}
                         updateMarks={updateMarks}
-                        disable={disable}
                     />
                     )
                     :!assignment.submitted?(
-                    <Paper elevation={3} className={classes.paper}>
-                        <Typography variant="h5" className={classes.centerText} gutterBottom>{assignment.name}</Typography>
-                        <Typography variant="body2" className={classes.centerText} gutterBottom>Question: {assignment.title}</Typography>
-                        <Typography variant="body1" className={classes.centerText}>student has not submitted this assignment</Typography>
-                    </Paper>
+                    <Submit 
+                        assignment={assignment} 
+                        message='student has not submitted this assignment'
+                    />
                     )
                     :(
-                    <Paper elevation={3} className={classes.paper}>
-                        <Typography variant="h5" className={classes.centerText} gutterBottom>{assignment.name}</Typography>
-                        <Typography variant="body2" className={classes.centerText} gutterBottom>Question: {assignment.title}</Typography>
-                        <Typography variant="body1" className={classes.centerText}> Score Received: {assignment.score}</Typography>
-                    </Paper>
+                    <Submit 
+                        assignment={assignment} 
+                        message={`Score Recieved: ${assignment.score}`}
+                    />
                     )
                     }
                </>

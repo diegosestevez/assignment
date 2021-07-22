@@ -12,6 +12,13 @@ const useStyles = makeStyles({
        flexDirection: 'column',
        alignItems: 'center'
     },
+    centerText: {
+      textAlign: 'center'
+   },
+   navbar: {
+      flexDirection: 'row',
+      alignItems: 'center'
+   }
 })
 
 export default useStyles
