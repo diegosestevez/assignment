@@ -94,9 +94,9 @@ const InstructorPage = () => {
                )
        }
        )}
-       <Grid container justifyContent='center'>
-            <Button component={Link} to='/home' variant="contained" color="primary">Back</Button>
-       </Grid>
+        <Grid container justifyContent="center">
+             <a href="/home">Back</a>
+         </Grid>
        </>
     )
 }

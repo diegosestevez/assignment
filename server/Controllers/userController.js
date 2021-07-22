@@ -34,7 +34,7 @@ let userObj = [
 
 let assignObj = [
     {
-        title: "When Was BCIT's 50th-annniversary celebration ?",
+        title: "When Was BCIT's 50th-annniversary celebration?",
         type:'MC',
         options: ["2016", "1976", "2002", "1999"],
         submitted: false,
@@ -42,7 +42,7 @@ let assignObj = [
         answer: ''
     },
     {
-        title: "Which of the following services does the LTC provide ? Select all that apply.",
+        title: "Which of the following services does the LTC provide? Select all that apply.",
         type: 'MS',
         options: ['Technicall Illustration', 'Instructional Design', 'Financial Advice', 'Admission and Registration', 'Audio-visual Loans'],
         submitted: false,
@@ -50,7 +50,7 @@ let assignObj = [
         answer: ''
     },
     {
-        title: "The current Prime Minister in Canada is (include the starting year for the PM).",
+        title: "The current Prime Minister in Canada is (include the starting year for the PM)?",
         type: 'FIB',
         options: [],
         submitted: false,

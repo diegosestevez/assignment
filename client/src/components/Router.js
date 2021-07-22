@@ -37,10 +37,10 @@ const Routes = () => {
       <Router>
             <Switch>
                   <Route path="/home">
-                        <FrontPage />
+                        <FrontPage/>
                   </Route>
                   <Route exact path="/">
-                        <Redirect to="/home" />
+                        <Redirect to="/home"/>
                   </Route>
                   <Route path="/instructor">
                         <InstructorPage />

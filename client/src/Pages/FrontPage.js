@@ -1,4 +1,3 @@
-// import { useEffect, useState } from 'react';
 import { Button, Grid, Paper, Typography } from '@material-ui/core'
 import { Link } from "react-router-dom";
 import useStyles from './styles/styles';

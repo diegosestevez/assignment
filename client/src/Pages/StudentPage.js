@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import {Link} from "react-router-dom";
 import Assignment1 from '../components/Assignment1';
 import Assignment2 from '../components/Assignment2';
 import Assignment3 from '../components/Assignment3';
@@ -201,7 +200,7 @@ const StudentPage = ({userID, name}) => {
             )
         })}
          <Grid container justifyContent="center">
-            <Button component={Link} to='/home' variant="contained" color="primary">Back</Button>
+             <a href="/home">Back</a>
          </Grid>
         </>
     )
