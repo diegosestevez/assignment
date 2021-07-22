@@ -40,7 +40,7 @@ const FrontPage = () => {
         </Paper>
         <Paper  elevation={3} className={classes.paper}>
             <Grid container spacing={3} className={classes.root}>
-            <Typography variant="body1" gutterBottom>Click here to preload each page with user data</Typography>
+            <Typography variant="body1" gutterBottom>Click here first to preload each page with user data</Typography>
                 <form onSubmit={handleFetch} >
                     <Button type="submit" variant="contained">
                         Create Users

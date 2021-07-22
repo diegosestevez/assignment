@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const app = require('./app');
+require('dotenv').config()
 
 
-const connectionString = 'mongodb://localhost:27017/DB'
-// const connectionString = 'mongodb://database:27017/DB'
+const connectionString = process.env.DB_DOCKER
+// const connectionString = process.env.DB_LOCAL
 
 mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false})
 .then(()=>{
@@ -16,7 +17,7 @@ mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: t
 
 
 app.get("/", (req, res) => {
-    res.json({ message: "Hello From Backend" });
+    res.status(200).json({ message: "Hello From The Backend" });
 });
 
 

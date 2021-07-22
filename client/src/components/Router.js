@@ -16,7 +16,7 @@ const Routes = () => {
     const [studentName3, setStudentName3] = useState([]);
     
     useEffect(()=>{
-      fetch('http://localhost:8000/users')
+      fetch(`http://localhost:8000/users`)
       .then(res => res.json())
       .then(data => {
  
