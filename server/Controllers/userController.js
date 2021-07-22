@@ -61,8 +61,7 @@ let assignObj = [
 
 
 exports.createDefaultUsers = async () =>{
-    console.log('Thanks Omkar');
-
+    
     const users = await User.find();
 
     if(users.length < 4){

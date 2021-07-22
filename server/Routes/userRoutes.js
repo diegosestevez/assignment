@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.route('/')
 .get(userController.getAllUsers)
-// .get(userController.createDefaultUsers)
 .delete(userController.deleteAllUsers)
 
 router.route('/create')
