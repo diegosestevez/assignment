@@ -1,5 +1,7 @@
 const User = require('./../Models/userModel');
 const assignment = require('./../Controllers/assignmentController');
+const jwt = require('jsonwebtoken');
+const utils = require('./../utils');
 
 let userObj = [
     {
@@ -8,14 +10,17 @@ let userObj = [
     {
         name: 'Karl Gustav',
         usertype: 'Student',
+        password: '123456'
     },
     {
         name: 'Katie Clues',
         usertype: 'Student',
+        password: 'abcdef'
     },
     {
         name: 'Mike Naegi',
         usertype: 'Student',
+        password: 'password'
     }
 ]
 
@@ -113,4 +118,86 @@ exports.deleteAllUsers = async (req, res) => {
             error: err
         })
     }
+}
+
+
+exports.createUserToken = async (req, res) => {
+    const user = req.body.name;
+    const pwd = req.body.password;
+
+    try{
+
+        const matchedUser = await User.findOne({name:user, password:pwd})
+
+        console.log(matchedUser);
+
+        if(!user || !pwd) {
+            return res.status(400).json({
+                error: true,
+                message: 'Username or Password required'
+            });
+        }
+
+        if(matchedUser === null) {
+            return res.status(401).json({
+                error: true,
+                message: 'Username or Password is wrong'
+            })
+        }
+
+
+        //generate token
+        const token = utils.generateToken(matchedUser);
+
+        const getUserObj = utils.getCleanUser(matchedUser);
+
+        return res.json({user: getUserObj, token});
+    
+    }catch(err){
+        res.status(404).json({
+            message: 'something went wrong',
+            error: err
+        })
+    }
+
+}
+
+
+
+
+
+exports.verifyUserToken = async (req, res) => {
+
+    var token = req.query.token;
+
+    try{
+        
+        if (!token) {
+            return res.status(400).json({
+            error: true,
+            message: "Token is required."
+            });
+        }
+    
+        jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+            if(err) return res.status(401).json({
+                error:true,
+                message: 'Invalid Token'
+            })
+        })
+    
+       
+            var getUserObj = utils.getCleanUser(userObj[2]);
+            return res.json({ user: getUserObj, token });
+
+    }catch(err){
+        res.status(404).json({
+            message: 'something went wrong',
+            error: err
+        })
+    }
+    
+    
+  
+
 }

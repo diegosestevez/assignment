@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const app = require('./app');
-require('dotenv').config()
+// require('dotenv').config()
 
 
 const connectionString = process.env.DB_DOCKER

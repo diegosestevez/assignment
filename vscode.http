@@ -3,3 +3,14 @@
 # DELETE http://localhost:8000/users
 
 # DELETE http://localhost:8000/assign
+
+POST http://localhost:8000/users/signin
+Content-Type: application/json
+
+{
+    "name" : "Katie Clues",
+    "password": "abcdef"
+}
+
+
+# GET http://localhost:8000/users/verifyToken?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VydHlwZSI6IlN0dWRlbnQiLCJwYXNzd29yZCI6ImFiY2RlZiIsIl9pZCI6IjYwZmYwN2FlYjViOGY4MDQwNDIwMDNhOSIsIm5hbWUiOiJLYXRpZSBDbHVlcyIsIl9fdiI6MCwiaWF0IjoxNjI3MzI3NjkyLCJleHAiOjE2Mjc0MTQwOTJ9.3OX9bcWzT4xTXzeJReudKZ-A4vetyif3t6gRXrakXPE

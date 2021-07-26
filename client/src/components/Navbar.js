@@ -1,5 +1,5 @@
 import {AppBar, Typography} from '@material-ui/core';
-import BeenhereIcon from '@material-ui/icons/Beenhere';
+// import {BeenhereIcon} from '@material-ui/icons';
 import useStyles from './styles/styles';
 
 const Navbar = () => {
@@ -7,7 +7,7 @@ const Navbar = () => {
 
     return (
      <AppBar position="static" className={classes.navbar}>
-       <BeenhereIcon style={{fontSize:'50'}}/>
+       {/* <BeenhereIcon style={{fontSize:'50'}}/> */}
         <Typography variant="h3">
            Marking App
         </Typography>
