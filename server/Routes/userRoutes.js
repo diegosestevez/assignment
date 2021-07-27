@@ -10,4 +10,7 @@ router.route('/')
 router.route('/create')
 .get(userController.createDefaultUsers)
 
+router.route('/auth')
+.get(userController.authenticateUsers)
+
 module.exports = router;
