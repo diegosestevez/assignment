@@ -20,6 +20,7 @@ const Routes = () => {
       .then(res => res.json())
       .then(data => {
  
+          console.log(data)
           setStudentID1(data.users[1]._id);
           setStudentID2(data.users[2]._id);
           setStudentID3(data.users[3]._id);
@@ -44,13 +45,13 @@ const Routes = () => {
                   <Route path="/instructor">
                         <InstructorPage />
                   </Route>
-                  <Route path="/student/1">
+                  <Route path="/student/60ff0df22ac5733b1cd7efcb">
                         <StudentPage userID={studentID1} name={studentName1}/>
                   </Route>
-                  <Route path="/student/2">
+                  <Route path="/student/60ff0df22ac5733b1cd7efcc">
                         <StudentPage userID={studentID2} name={studentName2}/>
                   </Route>
-                  <Route path="/student/3">
+                  <Route path="/student/60ff0df22ac5733b1cd7efcd">
                         <StudentPage userID={studentID3} name={studentName3}/>
                   </Route>
             </Switch>

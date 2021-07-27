@@ -117,9 +117,6 @@ exports.deleteAllUsers = async (req, res) => {
 
 
 exports.authenticateUsers = async (req, res) => {
-    // console.log(req.query.user)
-    // console.log(req.query.password)
-
     try{
         const user = await User.findOne({name: req.query.user})
 
