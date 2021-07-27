@@ -1,72 +1,75 @@
-# version: "3"
-# services:
-#     react-app:
-#         image: react-app
-#         build: ./client/
-#         restart: always
-#         stdin_open: true
-#         ports:
-#             - "3000:3000"
-#         networks: 
-#             - mern-app
-#         links:
-#             - api-server        
-#     api-server:
-#         image: api-server
-#         build: ./server/
-#         restart: always
-#         ports:
-#             - "8000:8000"
-#         networks: 
-#             - mern-app  
-#         depends_on: 
-#             - mongo
-#     mongo:
-#         image: mongo:4.4-bionic
-#         restart: always
-#         ports: 
-#             - "27017:27017"
-#         networks: 
-#             - mern-app
-#         volumes: 
-#             - mongo-data:/data/db
-# networks:
-#     mern-app:
-#         driver: bridge
-# volumes: 
-#     mongo-data:
-#         driver: local
-      
-version: "2"
+version: "3"
 services:
     react-app:
-        build:
-            context: ./client/
+        image: react-app
+        build: ./client/
         restart: always
+        stdin_open: true
         ports:
             - "3000:3000"
-        volumes:
-            - ./client:/client
-            - /client/node_modules
+        networks: 
+            - mern-app
         links:
-            - server
-        
+            - api-server        
     api-server:
-        build:
-            context: ./server/
+        image: api-server
+        build: ./server/
         restart: always
         ports:
             - "8000:8000"
-        volumes:
-            - ./server:/server
-            - /backend/node_modules
-        depends_on:
-            - database
-    database:
-        image: mongo
+        networks: 
+            - mern-app  
+        depends_on: 
+            - mongo
+    mongo:
+        image: mongo:4.4-bionic
         restart: always
-        container_name: database
-        volumes:
-            - ./data-node:/data/db
-        ports:
-            - 27017:27017
+        ports: 
+            - "27017:27017"
+        networks: 
+            - mern-app
+        container_name: database    
+        volumes: 
+            - mongo-data:/data/db
+networks:
+    mern-app:
+        driver: bridge
+volumes: 
+    mongo-data:
+        driver: local
+
+        
+      
+# version: "2"
+# services:
+#     react-app:
+#         build:
+#             context: ./client/
+#         restart: always
+#         ports:
+#             - "3000:3000"
+#         volumes:
+#             - ./client:/client
+#             - /client/node_modules
+#         links:
+#             - server
+        
+#     api-server:
+#         build:
+#             context: ./server/
+#         restart: always
+#         ports:
+#             - "8000:8000"
+#         volumes:
+#             - ./server:/server
+#             - /backend/node_modules
+#         depends_on:
+#             - database
+#     database:
+#         image: mongo
+#         restart: always
+#         container_name: database
+#         volumes:
+#             - ./data-node:/data/db
+#         ports:
+#             - 27017:27017
