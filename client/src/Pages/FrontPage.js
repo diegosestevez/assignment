@@ -22,17 +22,17 @@
 //                         </Button>
 //                     </Grid>
 //                     <Grid item>
-//                         <Button component={Link} to="student/60ff0df22ac5733b1cd7efcb" variant="contained" color="secondary">
+//                         <Button component={Link} to="student/61008db4ca62a72860aba5a2" variant="contained" color="secondary">
 //                             Student 1
 //                         </Button>
 //                     </Grid>
 //                     <Grid item>
-//                         <Button component={Link} to="student/60ff0df22ac5733b1cd7efcc" variant="contained" color="secondary">
+//                         <Button component={Link} to="student61008db4ca62a72860aba5a3" variant="contained" color="secondary">
 //                             Student 2
 //                         </Button>
 //                     </Grid>
 //                     <Grid item>
-//                         <Button component={Link} to="student/60ff0df22ac5733b1cd7efcd" variant="contained" color="secondary">
+//                         <Button component={Link} to="student/61008db4ca62a72860aba5a4" variant="contained" color="secondary">
 //                             Student 3
 //                         </Button>
 //                     </Grid>  
@@ -65,9 +65,9 @@ const FrontPage = () =>{
 
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('')
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    
     const signIn = (e) => {
         e.preventDefault();
 
@@ -83,10 +83,10 @@ const FrontPage = () =>{
                 "loggedIn": true,
                 "userId" : data.user._id,
                 "name": data.user.name,
-                "userType": data.user.userType
+                "userType": data.user.usertype
             }
 
-            localStorage.setItem('local_auth', JSON.stringify(auth));
+           localStorage.setItem('local_auth', JSON.stringify(auth));
 
             if(data.user.usertype === 'Student'){
                 history.push(`/student/${data.user._id}`)
@@ -94,10 +94,11 @@ const FrontPage = () =>{
                 history.push('/instructor')
             }
 
+
         })
         .catch(err => {
-            setError(err);
             setLoading(false)
+            console.log('the url containing this user data does not exist')
         })
 
     }
@@ -106,7 +107,7 @@ const FrontPage = () =>{
 
     return(
         <>
-            {error!== null && <h1>{error}</h1>}
+
             <form onSubmit={(e) => signIn(e)}>
                 <label>Username</label>
                 <input type='text' value={userName} onChange={(e) => setUserName(e.target.value)}></input>

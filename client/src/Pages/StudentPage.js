@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
+import {BrowserRouter as Router, useHistory} from "react-router-dom";
 import Assignment1 from '../components/Assignment1';
 import Assignment2 from '../components/Assignment2';
 import Assignment3 from '../components/Assignment3';
-import { Paper, Typography, Grid } from '@material-ui/core';
+import { Paper, Typography, Grid, Button } from '@material-ui/core';
 import useStyles from './styles/styles';
 
 
-const StudentPage = ({userID, name}) => {
+const StudentPage = () => {
 
     const classes = useStyles();
+    const history = useHistory()
 
-    const [questions, setQuestions] = useState(null);
+    const [questions, setQuestions] = useState([]);
     
     const [multipleChoice, setMultipleChoice] = useState(null);
     const [multiSelect, setMultSelect] = useState([]);
@@ -18,16 +20,32 @@ const StudentPage = ({userID, name}) => {
  
 
     useEffect(()=>{
-        fetch(`http://localhost:8000/assign?user=${userID}`)
+        const token = localStorage.getItem('local_auth')
+        const tokenString = JSON.parse(token)
+        const studentId = tokenString.userId;
+
+       validateSession(token);
+
+       fetch(`http://localhost:8000/assign?user=${studentId}`)
         .then(res => res.json())
         .then(data => {
-            setQuestions(data.message)
-            console.log(data.message);
+            setQuestions(data.message);
         })
-        .catch(err => console.log('Error: ' + err))
-    },[userID])
+        .catch(err => console.log('Error: ' + err))    
+    },[])
+
+    
+
+    const validateSession = (token) => {
+        if(token === null){
+            history.push('/');
+        }
+    }
+
+    
 
 
+    
     // defines question type payload values when each question is pushed into the database //
     const radioButtonValue = (e) => {
         setMultipleChoice(e.target.value);
@@ -59,7 +77,7 @@ const StudentPage = ({userID, name}) => {
         const payload = {
             answer:multipleChoice,
             submitted: true,
-            user_id: userID,
+            // user_id: userID,
             type:'MC'
         }
 
@@ -85,7 +103,7 @@ const StudentPage = ({userID, name}) => {
         const payload = {
             answer:multiSelect,
             submitted: true,
-            user_id: userID,
+            // user_id: userID,
             type:'MS'
         }
 
@@ -111,7 +129,7 @@ const StudentPage = ({userID, name}) => {
         const payload={
             answer:fillInBlank,
             submitted: true,
-            user_id: userID,
+            // user_id: userID,
             type:'FIB'
         }
 
@@ -126,14 +144,25 @@ const StudentPage = ({userID, name}) => {
         .catch(err => console.log(err)) 
     }
 
+
+
+
+
+    const logout = () => {
+        localStorage.clear()
+        history.push("/");
+    }
+
+
     
     return (
         <>
-         <Typography variant="h3" className={classes.centerText}>Hello {name}</Typography>
+         
         {questions && questions.map(question =>{
              
             return(
                 <>  
+                 <Typography variant="h5" className={classes.centerText}>Hello {question.name}</Typography>
                     {!question.submitted?
                     <>
                         {question.type === 'MC'?(
@@ -184,7 +213,7 @@ const StudentPage = ({userID, name}) => {
             )
         })}
          <Grid container justifyContent="center">
-             <a href="/home">Back</a>
+             <Button color='default' variant='contained' onClick={logout}>Logout</Button>
          </Grid>
         </>
     )
