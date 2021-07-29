@@ -13,16 +13,16 @@ Instructors will be able to see each student and their corresponding assignment.
 - Install [Docker](https://www.docker.com/) onto your OS (if you haven’t already)
 - Open up the project using VScode or your preferred text editor
 - Go to the **Server** directory and scan the **server.js** file
-- Make sure that the following line const `connectionString = process.env.DB_DOCKER` is **uncommented** and that `const connectionString = process.env.DB_LOCAL` is **commented *(or deleted if you don’t plan on running the application via npm)**
-- Now return to the root directory and run **docker-compose up**
+- Make sure that the following line `const connectionString = process.env.DB_DOCKER` is **uncommented** and that `const connectionString = process.env.DB_LOCAL` is **commented** (or deleted if you don’t plan on running the application via npm)
+- Now return to the **root directory** and run `docker-compose up`
 - The Application should now run on **localhost:3000**
-- The application will initially have no users populated in the database. To create them, click on the **Create Users** button at the login page. Do so will create **1 Instructor** account and **3 student accounts** (these accounts will persist if docker-compose is run multiple times)
+- The application will initially have **no users populated** in the database. To create them, click on the **Create Users** button at the login page. Doing so will create **1 Instructor** account and **3 student accounts** (these accounts will persist if docker-compose is run multiple times)
 - Password for all users is: **123456** 
 - 	Usernames are (case sensitive):
-1. **Joe Schmoe** (instructor)
-2. **Karl Gustav**
-3. **Katie Clues**
-4. **Mike Naegi**
+    -  **Joe Schmoe** (instructor)
+    -  **Karl Gustav**
+    -  **Katie Clues**
+    -  **Mike Naegi**
 
 ## Requirements Fullfilled
 - ReactJS for the frontend
@@ -30,10 +30,10 @@ Instructors will be able to see each student and their corresponding assignment.
 -	MongoDB for the Database
 -	Dockerized Application
 -	2 User roles: 1 Instructor and 3 Students
--	1. 3 Assignments for each student (cannot be edited after submission)
-- 2. 1 Multiple Choice
-- 3. Multi-Select
-- 4. 1 Short Answer that only take submissions like [three 1991, five 19923]
+-	3 Assignments for each student (cannot be edited after submission)
+    - 1 Multiple Choice
+    - 1 Multi-Select
+    - 1 Short Answer that can only take submissions like [three 1991, five 19923]
 - Instructor can mark student assignments using a numerical value (cannot be edited after submission)
 
 ## Bonuses Fulfilled
