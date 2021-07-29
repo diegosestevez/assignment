@@ -1,4 +1,4 @@
-import { FormControlLabel, RadioGroup, FormLabel, Radio, Button, Paper} from '@material-ui/core'
+import { FormControlLabel, RadioGroup, FormLabel, Radio, Button, Paper, Typography} from '@material-ui/core'
 import useStyles from './styles/styles'
 
 const Assignment1 = ({question, multipleChoice, handleMultipleChoice, radioButtonValue}) => {
@@ -6,6 +6,8 @@ const Assignment1 = ({question, multipleChoice, handleMultipleChoice, radioButto
     
     return ( 
     <Paper elevation={3} className={classes.paper}>
+        <Typography variant='h4' gutterBottom>Assignment #1</Typography>
+        <Typography variant='h6' gutterBottom>{question.name}</Typography>
         <form onSubmit={handleMultipleChoice}>
             <FormLabel component="legend" >{question.title}</FormLabel>
             <RadioGroup value={multipleChoice} onChange={radioButtonValue} className={classes.form}>

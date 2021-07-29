@@ -3,8 +3,8 @@ const app = require('./app');
 require('dotenv').config()
 
 
-const connectionString = process.env.DB_DOCKER
-// const connectionString = process.env.DB_LOCAL
+// const connectionString = process.env.DB_DOCKER
+const connectionString = process.env.DB_LOCAL
 
 mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify:false})
 .then(()=>{

@@ -1,4 +1,4 @@
-import { FormControlLabel, FormGroup, FormLabel, Checkbox, Button, Paper} from '@material-ui/core';
+import { FormControlLabel, FormGroup, FormLabel, Checkbox, Button, Paper, Typography} from '@material-ui/core';
 import useStyles from './styles/styles'
 
 const Assignment2 = ({question, handleMultiSelect, checkBoxValue}) => {
@@ -6,6 +6,8 @@ const Assignment2 = ({question, handleMultiSelect, checkBoxValue}) => {
 
     return (
         <Paper elevation={3} className={classes.paper}>
+            <Typography variant='h4' gutterBottom>Assignment #2</Typography>
+            <Typography variant='h6' gutterBottom>{question.name}</Typography>
             <form onSubmit={handleMultiSelect} >
                 <FormLabel>{question.title}</FormLabel>
                     <FormGroup className={classes.form}>

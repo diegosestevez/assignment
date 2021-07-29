@@ -37,8 +37,6 @@ networks:
 volumes: 
     mongo-data:
         driver: local
-
-        
       
 # version: "2"
 # services:

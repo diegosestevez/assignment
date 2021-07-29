@@ -114,3 +114,31 @@ exports.deleteAllUsers = async (req, res) => {
         })
     }
 }
+
+
+exports.authenticateUsers = async (req, res) => {
+    try{
+        const user = await User.findOne({name: req.query.user})
+
+        if(!user){
+            res.status(404).json({
+                message: 'This user does not exist',
+            })
+        }else{
+            if(user.password === req.query.password){
+                res.status(200).json({
+                    message: 'user has been autheticated',
+                    user
+                })
+            }else{
+                res.status(404).json({
+                    message: 'Password is incorrect'
+                })
+            } 
+        }
+    }catch(err){
+        res.status(500).json({
+            message: 'An error occuried while trying to retrieve users'
+        })
+    }
+}

@@ -1,32 +1,50 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import Assignment1 from '../components/Assignment1';
 import Assignment2 from '../components/Assignment2';
 import Assignment3 from '../components/Assignment3';
-import { Paper, Typography, Grid } from '@material-ui/core';
+import { Paper, Typography, Grid, Button } from '@material-ui/core';
 import useStyles from './styles/styles';
 
 
-const StudentPage = ({userID, name}) => {
+const StudentPage = () => {
 
     const classes = useStyles();
+    const history = useHistory()
 
-    const [questions, setQuestions] = useState(null);
+    const [questions, setQuestions] = useState([]);
     
     const [multipleChoice, setMultipleChoice] = useState(null);
     const [multiSelect, setMultSelect] = useState([]);
     const [fillInBlank, setFillInBlank] = useState('');
  
-
+    
     useEffect(()=>{
-        fetch(`http://localhost:8000/assign?user=${userID}`)
+        const token = localStorage.getItem('local_auth')
+        const tokenString = JSON.parse(token)
+       
+        validateSession(token, tokenString.userType);
+        fetchStudentData(tokenString.userId)
+    },[])
+
+    
+    //Validates localstorage session//
+    const validateSession = (token, userType) => {
+        if(token === null || userType === 'Instructor' ){
+            history.push('/');
+        }
+    }
+
+    //Fetches assignment data specific to student that logged in//
+    const fetchStudentData = (user) => {
+        fetch(`http://localhost:8000/assign?user=${user}`)
         .then(res => res.json())
         .then(data => {
-            setQuestions(data.message)
-            console.log(data.message);
+            setQuestions(data.message);
         })
         .catch(err => console.log('Error: ' + err))
-    },[userID])
-
+    }
+    
 
     // defines question type payload values when each question is pushed into the database //
     const radioButtonValue = (e) => {
@@ -52,14 +70,19 @@ const StudentPage = ({userID, name}) => {
         alert("Assignment was submitted!")
         e.preventDefault();
 
+        const token = localStorage.getItem('local_auth')
+        const tokenString = JSON.parse(token)
+        const studentId = tokenString.userId;
+
         (() => {
             document.getElementById('assign1').style.display = 'none';
         })()
-
+        
+        
         const payload = {
             answer:multipleChoice,
             submitted: true,
-            user_id: userID,
+            user_id: studentId,
             type:'MC'
         }
 
@@ -78,6 +101,10 @@ const StudentPage = ({userID, name}) => {
         alert("Assignment was submitted!")
         e.preventDefault();
 
+        const token = localStorage.getItem('local_auth')
+        const tokenString = JSON.parse(token)
+        const studentId = tokenString.userId;
+
         (() => {
             document.getElementById('assign2').style.display = 'none';
         })()
@@ -85,7 +112,7 @@ const StudentPage = ({userID, name}) => {
         const payload = {
             answer:multiSelect,
             submitted: true,
-            user_id: userID,
+            user_id: studentId,
             type:'MS'
         }
 
@@ -104,6 +131,10 @@ const StudentPage = ({userID, name}) => {
         alert("Assignment was submitted!")
         e.preventDefault();
 
+        const token = localStorage.getItem('local_auth')
+        const tokenString = JSON.parse(token)
+        const studentId = tokenString.userId;
+
        (() => {
          document.getElementById('assign3').style.display = 'none';
        })()
@@ -111,7 +142,7 @@ const StudentPage = ({userID, name}) => {
         const payload={
             answer:fillInBlank,
             submitted: true,
-            user_id: userID,
+            user_id: studentId,
             type:'FIB'
         }
 
@@ -126,10 +157,19 @@ const StudentPage = ({userID, name}) => {
         .catch(err => console.log(err)) 
     }
 
+
+
+    //destroys student session from localstorage//
+    const logout = () => {
+        localStorage.clear()
+        history.push("/");
+    }
+
+
     
     return (
         <>
-         <Typography variant="h3" className={classes.centerText}>Hello {name}</Typography>
+         
         {questions && questions.map(question =>{
              
             return(
@@ -166,6 +206,7 @@ const StudentPage = ({userID, name}) => {
                     (
                     <>
                         <Paper elevation={3} className={classes.paper}>
+                            <Typography variant='h6' className={classes.centerText} gutterBottom>{question.name}</Typography>
                             <Typography variant='subtitle1' className={classes.centerText} gutterBottom>{question.title}</Typography>
                             <Typography variant="subtitle2" className={classes.centerText}>Your Score: {question.score}</Typography>
                         </Paper>   
@@ -175,6 +216,7 @@ const StudentPage = ({userID, name}) => {
                     (
                         <>
                             <Paper elevation={3} className={classes.paper}>
+                                <Typography variant='h6' className={classes.centerText} gutterBottom>{question.name}</Typography>
                                 <Typography variant='body1' className={classes.centerText}>Question is submitted. Awaiting Instructor feedback</Typography>
                             </Paper>
                         </>
@@ -184,7 +226,7 @@ const StudentPage = ({userID, name}) => {
             )
         })}
          <Grid container justifyContent="center">
-             <a href="/home">Back</a>
+             <Button color='default' variant='contained' onClick={logout}>Logout</Button>
          </Grid>
         </>
     )
