@@ -4,4 +4,4 @@
 
 # DELETE http://localhost:8000/assign
 
-GET http://localhost:8000/users/auth?user=Katie%20Clues&password=abcdef
+# GET http://localhost:8000/users/auth?user=Katie%20Clues&password=abcdef

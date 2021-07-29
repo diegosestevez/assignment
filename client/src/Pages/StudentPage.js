@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {BrowserRouter as Router, useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Assignment1 from '../components/Assignment1';
 import Assignment2 from '../components/Assignment2';
 import Assignment3 from '../components/Assignment3';
@@ -18,34 +18,34 @@ const StudentPage = () => {
     const [multiSelect, setMultSelect] = useState([]);
     const [fillInBlank, setFillInBlank] = useState('');
  
-
+    
     useEffect(()=>{
         const token = localStorage.getItem('local_auth')
         const tokenString = JSON.parse(token)
-        const studentId = tokenString.userId;
-
-       validateSession(token);
-
-       fetch(`http://localhost:8000/assign?user=${studentId}`)
-        .then(res => res.json())
-        .then(data => {
-            setQuestions(data.message);
-        })
-        .catch(err => console.log('Error: ' + err))    
+       
+        validateSession(token, tokenString.userType);
+        fetchStudentData(tokenString.userId)
     },[])
 
     
-
-    const validateSession = (token) => {
-        if(token === null){
+    //Validates localstorage session//
+    const validateSession = (token, userType) => {
+        if(token === null || userType === 'Instructor' ){
             history.push('/');
         }
     }
 
+    //Fetches assignment data specific to student that logged in//
+    const fetchStudentData = (user) => {
+        fetch(`http://localhost:8000/assign?user=${user}`)
+        .then(res => res.json())
+        .then(data => {
+            setQuestions(data.message);
+        })
+        .catch(err => console.log('Error: ' + err))
+    }
     
 
-
-    
     // defines question type payload values when each question is pushed into the database //
     const radioButtonValue = (e) => {
         setMultipleChoice(e.target.value);
@@ -70,14 +70,19 @@ const StudentPage = () => {
         alert("Assignment was submitted!")
         e.preventDefault();
 
+        const token = localStorage.getItem('local_auth')
+        const tokenString = JSON.parse(token)
+        const studentId = tokenString.userId;
+
         (() => {
             document.getElementById('assign1').style.display = 'none';
         })()
-
+        
+        
         const payload = {
             answer:multipleChoice,
             submitted: true,
-            // user_id: userID,
+            user_id: studentId,
             type:'MC'
         }
 
@@ -96,6 +101,10 @@ const StudentPage = () => {
         alert("Assignment was submitted!")
         e.preventDefault();
 
+        const token = localStorage.getItem('local_auth')
+        const tokenString = JSON.parse(token)
+        const studentId = tokenString.userId;
+
         (() => {
             document.getElementById('assign2').style.display = 'none';
         })()
@@ -103,7 +112,7 @@ const StudentPage = () => {
         const payload = {
             answer:multiSelect,
             submitted: true,
-            // user_id: userID,
+            user_id: studentId,
             type:'MS'
         }
 
@@ -122,6 +131,10 @@ const StudentPage = () => {
         alert("Assignment was submitted!")
         e.preventDefault();
 
+        const token = localStorage.getItem('local_auth')
+        const tokenString = JSON.parse(token)
+        const studentId = tokenString.userId;
+
        (() => {
          document.getElementById('assign3').style.display = 'none';
        })()
@@ -129,7 +142,7 @@ const StudentPage = () => {
         const payload={
             answer:fillInBlank,
             submitted: true,
-            // user_id: userID,
+            user_id: studentId,
             type:'FIB'
         }
 
@@ -146,8 +159,7 @@ const StudentPage = () => {
 
 
 
-
-
+    //destroys student session from localstorage//
     const logout = () => {
         localStorage.clear()
         history.push("/");
@@ -162,7 +174,6 @@ const StudentPage = () => {
              
             return(
                 <>  
-                 <Typography variant="h5" className={classes.centerText}>Hello {question.name}</Typography>
                     {!question.submitted?
                     <>
                         {question.type === 'MC'?(
@@ -195,6 +206,7 @@ const StudentPage = () => {
                     (
                     <>
                         <Paper elevation={3} className={classes.paper}>
+                            <Typography variant='h6' className={classes.centerText} gutterBottom>{question.name}</Typography>
                             <Typography variant='subtitle1' className={classes.centerText} gutterBottom>{question.title}</Typography>
                             <Typography variant="subtitle2" className={classes.centerText}>Your Score: {question.score}</Typography>
                         </Paper>   
@@ -204,6 +216,7 @@ const StudentPage = () => {
                     (
                         <>
                             <Paper elevation={3} className={classes.paper}>
+                                <Typography variant='h6' className={classes.centerText} gutterBottom>{question.name}</Typography>
                                 <Typography variant='body1' className={classes.centerText}>Question is submitted. Awaiting Instructor feedback</Typography>
                             </Paper>
                         </>

@@ -1,62 +1,6 @@
-// import { Button, Grid, Paper, Typography } from '@material-ui/core'
-// import { Link } from "react-router-dom";
-// import useStyles from './styles/styles';
-
-// const FrontPage = () => {
-//  const classes = useStyles();
-
-//     const handleFetch = (e) => {
-//         alert('fetched user data from database')
-//         fetch('http://localhost:8000/users/create')
-//         .catch(err => console.log(err))
-//     }   
-
-//     return (
-//        <>
-//         <Paper elevation={3} className={classes.paper}>
-//             <Grid container spacing={3} className={classes.root}>
-//                 <Typography variant="h3" gutterBottom>Who are you?</Typography>
-//                 <Grid item>
-//                         <Button component={Link} to="/instructor" variant="contained" color="primary">
-//                             Instructor
-//                         </Button>
-//                     </Grid>
-//                     <Grid item>
-//                         <Button component={Link} to="student/61008db4ca62a72860aba5a2" variant="contained" color="secondary">
-//                             Student 1
-//                         </Button>
-//                     </Grid>
-//                     <Grid item>
-//                         <Button component={Link} to="student61008db4ca62a72860aba5a3" variant="contained" color="secondary">
-//                             Student 2
-//                         </Button>
-//                     </Grid>
-//                     <Grid item>
-//                         <Button component={Link} to="student/61008db4ca62a72860aba5a4" variant="contained" color="secondary">
-//                             Student 3
-//                         </Button>
-//                     </Grid>  
-//             </Grid>
-//         </Paper>
-//         <Paper  elevation={3} className={classes.paper}>
-//             <Grid container spacing={3} className={classes.root}>
-//             <Typography variant="body1" gutterBottom>Click here first to preload each page with user data</Typography>
-//                 <form onSubmit={handleFetch} >
-//                     <Button type="submit" variant="contained">
-//                         Create Users
-//                     </Button>
-//                 </form>
-//             </Grid>
-//         </Paper>
-//        </> 
-//     )
-// }
-
-// export default FrontPage
-
-
 import { useHistory } from 'react-router-dom';
 import React, {useState} from 'react';
+import { Button, Grid, Paper, Typography, TextField} from '@material-ui/core'
 import useStyles from './styles/styles';
 
 const FrontPage = () =>{
@@ -66,6 +10,7 @@ const FrontPage = () =>{
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null)
 
     
     const signIn = (e) => {
@@ -77,8 +22,9 @@ const FrontPage = () =>{
         .then(res => res.json())
         .then(data => {
             setLoading(false);
-            console.log(data);
-
+            setError(data.message);
+            // console.log(data);
+           
             let auth = {
                 "loggedIn": true,
                 "userId" : data.user._id,
@@ -98,23 +44,63 @@ const FrontPage = () =>{
         })
         .catch(err => {
             setLoading(false)
-            console.log('the url containing this user data does not exist')
+            console.log(err + ' the url containing this user data does not exist')
         })
 
     }
 
 
+    const handleFetch = (e) => {
+                alert('Created all users from the database')
+                fetch('http://localhost:8000/users/create')
+                .catch(err => console.log(err))
+            }  
+
 
     return(
         <>
-
-            <form onSubmit={(e) => signIn(e)}>
-                <label>Username</label>
-                <input type='text' value={userName} onChange={(e) => setUserName(e.target.value)}></input>
-                <label>Password</label>
-                <input type='password' value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                {!loading ? <button type='submit'>Submit</button> : <p>Loading...</p>}
-            </form>
+          <Paper  elevation={3} className={classes.paper}>
+            <Typography variant='h4' className={classes.centerText} gutterBottom>Sign In</Typography>
+             {error !== null && <p className={classes.error}>{error}</p>}
+                <form onSubmit={(e) => signIn(e)} className={classes.form}>
+                    <TextField
+                        label='Username'
+                        type='text'
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                    >
+                    </TextField>
+                    <TextField 
+                        label="Password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    >    
+                    </TextField>
+                    {!loading ? 
+                    <Button 
+                        type='submit' 
+                        variant='contained' 
+                        color='primary' 
+                        className={classes.signInButton}
+                        >
+                        Submit
+                    </Button> 
+                    : 
+                    <p>Loading... Please refresh your browser if you seen this message for more than 10 seconds</p>
+                    }
+                </form>
+            </Paper>
+            <Paper  elevation={3} className={classes.paper}>
+                <Grid container spacing={3} className={classes.root}>
+                <Typography variant="body1" gutterBottom>Click here first to preload each page with user data</Typography>
+                    <form onSubmit={handleFetch} >
+                        <Button type="submit" variant="contained">
+                            Create Users
+                        </Button>
+                    </form>
+                </Grid>
+            </Paper>
         </>
     )
 }

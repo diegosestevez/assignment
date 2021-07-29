@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import Marking from '../components/Marking';
 import Submit from '../components/Submit';
-import { Typography, Grid} from '@material-ui/core';
+import { Typography, Grid, Button} from '@material-ui/core';
 import useStyles from './styles/styles';
 
 const InstructorPage = () => {
@@ -21,8 +21,10 @@ const InstructorPage = () => {
     //Local Storage Validation //
     const validateSession = () =>{
         const token = localStorage.getItem('local_auth')
+        const tokenString = JSON.parse(token) 
+        const userType = tokenString.userType;
 
-        if(token === null){
+        if(token === null || userType === 'Student'){
             history.push('/');
         }
     }
@@ -32,7 +34,7 @@ const InstructorPage = () => {
         fetch(`http://localhost:8000/assign`)
         .then(res => res.json())
         .then(data => {
-            console.log(data.assignmentData);
+            // console.log(data.assignmentData);
             setAssignments(data.assignmentData);
         })
         .catch(err => console.log('Error: ' + err))
@@ -69,6 +71,11 @@ const InstructorPage = () => {
         setMark(e.target.value)
     }
 
+    // Logs user out and destroys localstorage session
+    const logout = () => {
+        localStorage.clear()
+        history.push("/");
+    }
 
     
 
@@ -103,7 +110,7 @@ const InstructorPage = () => {
        }
        )}
         <Grid container justifyContent="center">
-             <a href="/home">Back</a>
+             <Button color='default' variant='contained' onClick={logout}>Logout</Button>
          </Grid>
        </>
     )

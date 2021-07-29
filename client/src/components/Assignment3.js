@@ -1,4 +1,4 @@
-import { TextField,  FormLabel, Button, Paper} from '@material-ui/core';
+import { TextField,  FormLabel, Button, Paper, Typography} from '@material-ui/core';
 import useStyles from './styles/styles'
 
 const Assignment3 = ({question, handleFillIn, fillInValue}) => {
@@ -6,6 +6,8 @@ const Assignment3 = ({question, handleFillIn, fillInValue}) => {
 
     return (
         <Paper elevation={3} className={classes.paper}>
+            <Typography variant='h4' gutterBottom>Assignment #3</Typography>
+            <Typography variant='h6' gutterBottom>{question.name}</Typography>
             <form onSubmit={handleFillIn} >
                 <FormLabel> {question.title}</FormLabel>
                     <TextField 
